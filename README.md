@@ -7,7 +7,6 @@ The Employment Portal System is a web-based application designed to streamline t
 
 - **Frontend**:
   - React, Next js
-  - 
 - **Backend**:
   - Programming Language: Javascript
   - Database (e.g., MySQL, PostgreSQL, MongoDB)
