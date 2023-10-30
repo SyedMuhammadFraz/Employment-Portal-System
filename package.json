@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.4"
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "autoprefixer": "^10",
     "postcss": "^8",
+    "prettier-plugin-tailwindcss": "^0.5.6",
     "tailwindcss": "^3"
   }
 }
