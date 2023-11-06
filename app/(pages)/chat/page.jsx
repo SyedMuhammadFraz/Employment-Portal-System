@@ -1,39 +1,16 @@
 "use client"
 import Navbar from '@/components/navbar';
 import React, { useState, useEffect } from 'react';
+import ChatTile from '@/components/chatTile';
 
-const ChatTile = ({ username, message, imagePath, isRead, onClick }) => {
-    return (
-        <div className={`w-full flex bg-white gap-3 pt-3 ${isRead ? '' : 'font-bold'}`} onClick={onClick}>
-            <img
-                className="rounded-[50%] w-[53px] h-[53px] object-cover"
-                alt=""
-                src={imagePath}
-            />
-
-            <div className=''>
-                <p className="font-bold">{username}</p>
-                <p className="text text-xs text-gray-500">{message}</p>
-            </div>
-        </div>
-    );
-};
 
 const ChatSide = ({ chats }) => {
     const [selectedChat, setSelectedChat] = useState(0);
-    const [isClient, setIsClient] = useState(false);
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
-    const selectedChatData = isClient ? chats[selectedChat] : {};
+    const selectedChatData = chats[selectedChat];
 
     return (
-        <>     
-        <Navbar/>
-        
-        <div className='flex max-h-screen bg-[#F3F2EF] pl-40 pr-40 pb-40 pt-16 '>
+
+        <div className='flex h-screen bg-[#F3F2EF] pl-40 pr-40 pb- pt-16 '>
             <div className='w-[325px] bg-white p-4'>
                 <div className='flex justify-start'>Discussions</div>
                 {chats.map((chat, index) => (
@@ -47,21 +24,27 @@ const ChatSide = ({ chats }) => {
                     />
                 ))}
             </div>
-            <div className='flex-1 h-[400px] bg-gray-200 p-4 '>
-                <div className="h-full">
-                    <div className='text-xl font-bold'>{selectedChatData.username}</div>
-                    <div className='text-gray-500'>{selectedChatData.message}</div>
+
+            <div className='flex-1  bg-gray-200 p-4 '>
+                <div className="flex flex-col justify-between h-full">
+
+                    <div>
+                        <div className='text-xl font-bold'>{selectedChatData.username}</div>
+                        <div className='text-gray-500'>{selectedChatData.message}</div>
+                    </div>
+
+                    <div className="mt-4">
+                        <input
+                            type="text"
+                            className="border border-gray-300 rounded-md w-full p-2"
+                            placeholder="Type your message here"
+                        />
+                    </div>
                 </div>
-                <div className="mt-4">
-                    <input
-                        type="text"
-                        className="border border-gray-300 rounded-md w-full p-2"
-                        placeholder="Type your message here"
-                    />
-                </div>
+
             </div>
         </div>
-        </>
+
     );
 };
 
@@ -80,6 +63,9 @@ const chats = [
     // Add more sample chat data here
 ];
 
-export default function ChatPage() {
-    return <ChatSide chats={chats} />;
+const ChatPage = () => {
+    return <ChatSide className='bg-[#F3F2EF] h-full'
+        chats={chats} />;
 }
+
+export default ChatPage

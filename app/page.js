@@ -6,7 +6,6 @@ import PublishJob from '@/components/publishJob'
 import PublishJobCard from '@/components/publishJobCard'
 import AlertBar from '@/components/alertBar';
 import ChatSection from '@/components/chatSection';
-import ChatPage from './(pages)/chat/page';
 
 
 export default function Home() {

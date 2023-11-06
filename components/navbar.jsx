@@ -1,7 +1,7 @@
 import Link from 'next/link';
 const Navbar = () => {
   return (
-    <nav className="flex fixed w-full justify-between p-2 pl-20 pr-20 [text-decoration:none] bg-white text-left text-xs text-dimgray-200 font-roboto z-50">
+    <nav className="flex fixed w-full justify-between p-2 pl-20 pr-20 [text-decoration:none] bg-white text-left text-xs text-dimgray-200 font-roboto z-10">
 
       {/* logo - */}
       <div className="flex  ml-[60px] items-center justify-center gap-4">
@@ -21,14 +21,14 @@ const Navbar = () => {
 
         <div className="flex flex-row ml-30 items-center justify-center gap-[43px]">
 
-          <a className="flex flex-col items-center justify-center cursor-pointer w-[31.61px] h-[41.74px] text-[inherit]">
+        <Link className='cursor-pointer  text-[inherit]' href="/">
             <img
               className=" w-[29.1px] h-[22.97px]"
               alt=""
               src="./assets/icons/home.svg"
             />
             <div className="">Home</div>
-          </a>
+          </Link>
 
 
           <a className=" cursor-pointer  text-[inherit]">

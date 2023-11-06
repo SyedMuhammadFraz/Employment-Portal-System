@@ -3,7 +3,7 @@ import React from 'react'
 const HomepageProfile = () => {
     return (
 
-        <div className='h-[280px] rounded-md w-[225px] bg-white z-0'>
+        <div className='h-[297px] rounded-md w-[225px] bg-white z-0'>
 
             <div className='relative'>
                 <img

@@ -1,9 +1,12 @@
 "use client"
 import React, { useState } from 'react';
+import TagComponent from './tag';
 
 const PublishJobCard = ({ username ,text }) => {
     const [showMore, setShowMore] = useState(false);
     const maxLength = 150; // Adjust the length as needed
+    const tags = ["React", "Web Development", "Next js", "MongoDb"]; // Your tag names
+
 
 
     const handleSeeMore = () => {
@@ -59,22 +62,9 @@ const PublishJobCard = ({ username ,text }) => {
             {/* tags_____________ */}
             <div className='flex pt-5 gap-2  justify-center'>
 
-                <div className='flex flex-col bg-gray-300 rounded-3xl pl-5 pr-5 p-4 h-14 justify-center items-center'>
-                    <h3 className='font-semibold'>React</h3>
-                </div>
-
-                <div className='flex flex-col bg-gray-300 rounded-3xl pl-5 pr-5 p-4 h-14 justify-center items-center'>
-                    <h3 className='font-semibold'>Web Development</h3>
-                </div>
-
-                <div className='flex flex-col bg-gray-300 rounded-3xl pl-5 pr-5 p-4 h-14 justify-center items-center'>
-                    <h3 className='font-semibold'>Next js</h3>
-                </div>
-
-                <div className='flex flex-col bg-gray-300 rounded-3xl pl-5 pr-5 p-4 h-14 justify-center items-center'>
-                    <h3 className='font-semibold'>MongoDb</h3>
-                </div>
-
+            {tags.map((tag, index) => (
+                    <TagComponent key={index} tagName={tag} classes={'flex flex-col bg-gray-300 rounded-3xl pl-5 pr-5 h-10 justify-center items-center font-semibold'}/>
+                ))}
             </div>
             <div className='h-[0.1px] w-full bg-gray-200 mt-10'/>
             <div className='flex justify-center'>
