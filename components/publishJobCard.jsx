@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import TagComponent from './tag';
 
-const PublishJobCard = ({ username ,text }) => {
+const PublishJobCard = ({ username ,text, imageurl, classes }) => {
     const [showMore, setShowMore] = useState(false);
     const maxLength = 150; // Adjust the length as needed
     const tags = ["React", "Web Development", "Next js", "MongoDb"]; // Your tag names
@@ -13,7 +13,7 @@ const PublishJobCard = ({ username ,text }) => {
         setShowMore(!showMore);
     };
     return (
-        <div className='w-[543px] rounded-md mb-4 bg-white p-4'>
+        <div className={`w-full rounded-md mb-4 bg-white p-4 ${classes}`}>
 
             <div className='flex items-center justify-between'>
 
@@ -21,7 +21,7 @@ const PublishJobCard = ({ username ,text }) => {
                     <img
                         className=" rounded-[50%] w-[63px] h-[63px] object-cover"
                         alt=""
-                        src="./assets/images/dp.png"
+                        src={imageurl}
                     />
                     <div className=''>
                     <p className="font-bold">{username}</p>

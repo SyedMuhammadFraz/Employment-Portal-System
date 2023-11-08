@@ -47,7 +47,7 @@ export default function Home() {
             <PublishJob />
             <div className='mt-4'>
               {texts.map((text, index) => (
-                <PublishJobCard key={index} username='Username' text={text} />
+                <PublishJobCard key={index} imageurl={"./assets/images/dp.png"} username='Username' text={text} />
               ))}
             </div>
           </section>

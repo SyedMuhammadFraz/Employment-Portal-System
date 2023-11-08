@@ -4,12 +4,12 @@ const Navbar = () => {
     <nav className="flex fixed w-full justify-between p-2 pl-20 pr-20 [text-decoration:none] bg-white text-left text-xs text-dimgray-200 font-roboto z-10">
 
       {/* logo - */}
-      <div className="flex  ml-[60px] items-center justify-center gap-4">
+      <div className="flex  ml-[60px] items-center justify-center gap-0">
         <img
-          className=" w-[30%] h-[30px]"
+          className=" w-[30%] h-[50px]"
           alt=""
-          src="./vercel.svg"
-        />
+          src="./assets/icons/logo.png"
+          />
         <input
           className="[border:none] p-4 bg-[#EEF3F8] font-montserrat text-sm h-8  w-full "
           placeholder="Search"
@@ -22,12 +22,14 @@ const Navbar = () => {
         <div className="flex flex-row ml-30 items-center justify-center gap-[43px]">
 
         <Link className='cursor-pointer  text-[inherit]' href="/">
-            <img
-              className=" w-[29.1px] h-[22.97px]"
-              alt=""
-              src="./assets/icons/home.svg"
-            />
-            <div className="">Home</div>
+        <div className="flex flex-col ml-30 items-center justify-center w-[49px] h-[35.8px]">
+              <img
+                className=" w-[22.29px] h-[18.15px]"
+                alt=""
+                src="./assets/icons/home.svg"
+              />
+              <div className="">Home</div>
+            </div>
           </Link>
 
 
@@ -72,18 +74,18 @@ const Navbar = () => {
             </div>
           </a>
 
-          <a className="cursor-pointer text-[inherit]">
+          <Link className="cursor-pointer text-[inherit]" href="/profile">
 
             <div className="  w-[42.64px] h-[40.91px]">
               <img
                 className=" rounded-[50%] w-[24.52px] h-[24.52px] object-cover"
                 alt=""
-                src="./assets/images/dp.png"
+                src="./assets/images/dp2.jpeg"
               />
              
               <div className="">Profile</div>
             </div>
-          </a>
+          </Link>
 
 
         </div>

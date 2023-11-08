@@ -1,5 +1,4 @@
 "use client"
-import Navbar from '@/components/navbar';
 import React, { useState, useEffect } from 'react';
 import ChatTile from '@/components/chatTile';
 
