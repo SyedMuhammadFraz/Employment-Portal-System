@@ -6,6 +6,7 @@ import PublishJob from '@/components/publishJob'
 import PublishJobCard from '@/components/publishJobCard'
 import AlertBar from '@/components/alertBar';
 import ChatSection from '@/components/chatSection';
+import JobLists from '@/components/jobLists';
 
 
 export default function Home() {
@@ -46,9 +47,7 @@ export default function Home() {
 
             <PublishJob />
             <div className='mt-4'>
-              {texts.map((text, index) => (
-                <PublishJobCard key={index} imageurl={"./assets/images/dp.png"} username='Username' text={text} />
-              ))}
+              <JobLists />
             </div>
           </section>
 

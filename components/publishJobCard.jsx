@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import TagComponent from './tag';
 
-const PublishJobCard = ({ username ,text, imageurl, classes }) => {
+const PublishJobCard = ({ username, text, title, date, imageurl,tags, classes }) => {
     const [showMore, setShowMore] = useState(false);
     const maxLength = 150; // Adjust the length as needed
-    const tags = ["React", "Web Development", "Next js", "MongoDb"]; // Your tag names
+ 
+
 
 
 
@@ -24,8 +25,8 @@ const PublishJobCard = ({ username ,text, imageurl, classes }) => {
                         src={imageurl}
                     />
                     <div className=''>
-                    <p className="font-bold">{username}</p>
-                    <p className="text text-xs text-gray-500">Valid till: July, 2023 </p>
+                        <p className="font-bold">{username}</p>
+                        <p className="text text-xs text-gray-500">Valid till: {date} </p>
                     </div>
                 </div>
 
@@ -37,11 +38,11 @@ const PublishJobCard = ({ username ,text, imageurl, classes }) => {
 
             </div>
 
-            <h2 className='font-bold pt-4'>Frontend Developer</h2>
+            <h2 className='font-bold pt-4'>{title}</h2>
 
             <div className=''>
                 <p className='text-gray-500 text-sm pt-2'>
-                {text && (
+                    {text && (
                         <>
                             {showMore ? (
                                 <>
@@ -62,13 +63,13 @@ const PublishJobCard = ({ username ,text, imageurl, classes }) => {
             {/* tags_____________ */}
             <div className='flex pt-5 gap-2  justify-center'>
 
-            {tags.map((tag, index) => (
-                    <TagComponent key={index} tagName={tag} classes={'flex flex-col bg-gray-300 rounded-3xl pl-5 pr-5 h-10 justify-center items-center font-semibold'}/>
+                {tags.map((tag, index) => (
+                    <TagComponent key={index} tag={tag} classes={'flex flex-col bg-gray-300 font-normal rounded-3xl pl-5 pr-5 h-10 justify-center items-center font-semibold'} />
                 ))}
             </div>
-            <div className='h-[0.1px] w-full bg-gray-200 mt-10'/>
+            <div className='h-[0.1px] w-full bg-gray-200 mt-10' />
             <div className='flex justify-center'>
-            <button className='text-center justify-center p-4 text-blue-600 hover:text-blue-700 font-bold' > Apply </button>
+                <button className='text-center justify-center p-4 text-blue-600 hover:text-blue-700 font-bold' > Apply </button>
 
             </div>
 

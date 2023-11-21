@@ -5,6 +5,7 @@ const jobSchema = new mongoose.Schema({
     title: String,
     description: String,
     dueDate: Date,
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tags' }], // Array of tag references
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     active: Boolean,
@@ -20,4 +21,3 @@ try {
 }
 
 module.exports = JobListing;
-//{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }
