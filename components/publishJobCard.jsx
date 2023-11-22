@@ -69,7 +69,7 @@ const PublishJobCard = ({ username, text, title, date, imageurl,tags, classes })
             </div>
             <div className='h-[0.1px] w-full bg-gray-200 mt-10' />
             <div className='flex justify-center'>
-                <button className='text-center justify-center p-4 text-blue-600 hover:text-blue-700 font-bold' > Apply </button>
+                <button className='text-center justify-center px-4 py-2 text-white rounded-md w-full bg-blue-600 hover:bg-blue-700 font-bold' > Apply </button>
 
             </div>
 

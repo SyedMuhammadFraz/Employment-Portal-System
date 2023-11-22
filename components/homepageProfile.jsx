@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 
 
-const HomepageProfile = () => {
+const HomepageProfile = ({name}) => {
     return (
 
         <div className='h-[285px] rounded-md w-[225px] bg-white z-0'>
@@ -23,7 +23,7 @@ const HomepageProfile = () => {
                     />
                 </div>
                 <div className='flex flex-col pl-5 pr-5 text-center items-center justify-center mt-0 '>
-                    <p className='font-semibold text-black'>Username</p>
+                    <p className='font-semibold text-black'>{name}</p>
                     <p className='text-sm text-gray-500'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
 
                 </div>

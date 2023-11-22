@@ -1,63 +1,15 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import HomepageProfile from '@/components/homepageProfile'
-import Navbar from '@/components/navbar'
-import PublishJob from '@/components/publishJob'
-import PublishJobCard from '@/components/publishJobCard'
-import AlertBar from '@/components/alertBar';
-import ChatSection from '@/components/chatSection';
-import JobLists from '@/components/jobLists';
+import LoginForm from "@/components/loginForm";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+export default async function Home() {
+    const session = await getServerSession(authOptions);
 
+    if (session) redirect("/dashboard");
 
-export default function Home() {
-
-  const [productNames, setProductNames] = useState([]);
-
-  // Fetch product names from the API
-  useEffect(() => {
-    const fetchProductNames = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/blah/product');
-        const data = await response.json();
-        console.log(data)
-        setProductNames(data.map(product => product.name));
-      } catch (error) {
-        console.error('Error fetching product names:', error);
-      }
-    };
-    fetchProductNames();
-  }, []);
-  
-  const texts = Array(10).fill('Lorem ipsum dolor sit amet, consectetur adipiscing dkhddkjch scjackjhcx sjahdkjhdakjc sjchadhkcjhakjcn cajshie eduywuqd wkjqwid dhque wjjw dkcjoijc Lorem ipsum dolor sit amet, consectetur adipiscing dkhddkjch scjackjhcx sjahdkjhdakjc sjchadhkcjhakjcn cajshie eduywuqd wkjqwid dhque wjjw dkcjoijc');
-
-  return (
-    <>
-      <Navbar className="mt-0" />
-
-      <section className=" p-10 bg-[#F3F2EF]  w-full h-full ">
-
-        <div className='flex justify-between pt-8'>
-
-          <section className='fw-[225px] ml-[90px] '>
-            <HomepageProfile />
-            <AlertBar  />
-          </section>
-
-          <section className=' w-[543px] '>
-
-            <PublishJob />
-            <div className='mt-4'>
-              <JobLists />
-            </div>
-          </section>
-
-          <section className=' w-[325px] mr-[60px] '>
-            <ChatSection/>
-          </section>
-
-        </div>
-
-      </section>
-    </>
-  )
+    return (
+        <main>
+            <LoginForm />
+        </main>
+    );
 }
