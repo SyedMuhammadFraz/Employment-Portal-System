@@ -27,19 +27,31 @@ export const authOptions = {
             return null;
           }
 
-          return {
-            ...user.toObject(), // Convert Mongoose document to plain JavaScript object
-            id: user._id,
-          };        } catch (error) {
+          return user;
+
+        } catch (error) {
           console.log("Error: ", error);
         }
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-    property: 'id',
+
+  callbacks: {
+    jwt(params) {
+      if (params.user) {
+        params.token.id = params.user.id;
+      }
+      return params.token;
+    },
+    session({ session, token }) {
+      if (token.id) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
   },
+  
+
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/",

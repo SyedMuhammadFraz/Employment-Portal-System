@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PublishModal from './publishModal';
 
-const PublishJob = () => {
+const PublishJob = ({userId}) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -34,7 +34,7 @@ const PublishJob = () => {
 
           className="fixed top-0 z-20 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50"
         >
-          <PublishModal username={'Username'} isOpen={showModal} onClose={handleCloseModal} />
+          <PublishModal id={userId} username={'Username'} isOpen={showModal} onClose={handleCloseModal} />
         </div>
       )}
 

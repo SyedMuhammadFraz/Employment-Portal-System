@@ -27,7 +27,7 @@ export default function Home() {
 
           <section className=' w-[543px] '>
 
-            <PublishJob />
+            <PublishJob userId={session?.user?.id} />
             <div className='mt-4'>
               <JobLists />
             </div>

@@ -110,7 +110,7 @@ const Navbar = () => {
                       alt=""
                       src="./assets/images/dp2.jpeg"
                     />
-                    <p className="font-bold text-sm">{session?.user?.id}</p>
+                    <p className="font-bold text-sm">{session?.user?.isRecruiting}</p>
                   </div>
 
                   <img onClick={closeDropdown}
@@ -135,8 +135,8 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="text-xs underline text-saddlebrown">
-          Try Premium for free
+        <div onClick={()=>signOut()} className="text-xs cursor-pointer underline text-saddlebrown">
+          logout
         </div>
       </div>
     </nav>
