@@ -6,10 +6,10 @@ import PublishJob from '@/components/publishJob'
 import AlertBar from '@/components/alertBar';
 import ChatSection from '@/components/chatSection';
 import JobLists from '@/components/jobLists';
-import { useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 
 export default function Home() {
-  const {data:session}=useSession();
+  const { data: session } = useSession();
 
 
   return (
@@ -22,7 +22,7 @@ export default function Home() {
 
           <section className='fw-[225px] ml-[90px] '>
             <HomepageProfile name={session?.user?.name} />
-            <AlertBar  />
+            <AlertBar />
           </section>
 
           <section className=' w-[543px] '>
@@ -34,7 +34,7 @@ export default function Home() {
           </section>
 
           <section className=' w-[325px] mr-[60px] '>
-            <ChatSection/>
+            <ChatSection />
           </section>
 
         </div>

@@ -3,6 +3,8 @@ import User from "@/models/user";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import cookie from 'cookie';
+
 
 export const authOptions = {
   providers: [
@@ -45,12 +47,13 @@ export const authOptions = {
     },
     session({ session, token }) {
       if (token.id) {
-        session.user.id = token.id;
+        session.user.id = token.id;       
+
       }
       return session;
     },
   },
-  
+
 
   secret: process.env.NEXTAUTH_SECRET,
   pages: {

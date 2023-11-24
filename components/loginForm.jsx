@@ -34,9 +34,9 @@ export default function LoginForm() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="shadow-lg p-5 rounded-lg border-t-4 w-[400px] border-blue-500">
-                <h1 className="text-xl font-bold my-4">Login</h1>
+        <div className="flex items-center justify-center h-screen bg-[#F3F2EF] ">
+            <div className="shadow-lg p-5 rounded-lg border-t-4 w-[400px] bg-white border-blue-500">
+                <h1 className="text-xl font-semibold my-4 text-gray-500">Login</h1>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                     <input
@@ -61,7 +61,7 @@ export default function LoginForm() {
                     )}
 
                     <Link className="text-sm mt-3 text-right" href={"/register"}>
-                        Don't have an account? <span className="underline">Register</span>
+                        Don't have an account?  <span className="underline text-blue-700">Register</span>
                     </Link>
                 </form>
             </div>

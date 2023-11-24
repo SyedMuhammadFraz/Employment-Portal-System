@@ -7,12 +7,22 @@ import { NextResponse } from 'next/server';
 await connectMongoDB()
 
 
-export async function GET(req) {
-   // Fetch all jobs from the database
-   const jobs = await JobListing.find({}).populate('tags');
+export async function GET(req, res) {
+   const recruiterID =req.nextUrl.searchParams.get('recruiterID');
+   console.log('route=',recruiterID)
+   if (recruiterID) {
+      // Retrieve jobs for the specified recruiter ID
+      const jobs = await JobListing.find({ recruiterID }).populate('tags');
 
-   // Return the jobs as JSON
-   return NextResponse.json({jobs})
+      // Return the filtered jobs as JSON
+      return NextResponse.json({ jobs });
+   } else {
+      // Retrieve all jobs
+      const jobs = await JobListing.find({}).populate('tags');
+
+      // Return all jobs as JSON
+      return NextResponse.json({ jobs });
+   }
 }
 
 export async function POST(req, res) {
@@ -21,7 +31,7 @@ export async function POST(req, res) {
       const { recruiterID, title, description, dueDate, active, tags } = await req.json();
 
       // Create a new job instance
-      await JobListing.create({ recruiterID, title, description, dueDate, active,tags });
+      await JobListing.create({ recruiterID, title, description, dueDate, active, tags });
       return NextResponse.json({ message: 'job published' }, { status: 201 });
 
       // Return the response
@@ -48,3 +58,6 @@ export async function DELETE(req, res) {
       return NextResponse.json({ message: 'Failed to delete job' }, { status: 500 });
    }
 }
+
+
+

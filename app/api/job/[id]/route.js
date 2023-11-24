@@ -14,6 +14,6 @@ export async function PUT(request, { params }) {
 export async function GET(request, { params }) {
   const { id } = params;
   await connectMongoDB();
-  const Job= await JobListing.findOne({ _id: id });
+  const Job= await JobListing.find({recruiterID: id });
   return NextResponse.json({ Job }, { status: 200 });
 }

@@ -110,7 +110,7 @@ const Navbar = () => {
                       alt=""
                       src="./assets/images/dp2.jpeg"
                     />
-                    <p className="font-bold text-sm">{session?.user?.isRecruiting}</p>
+                    <p className="font-bold text-sm">{session?.user?.name}</p>
                   </div>
 
                   <img onClick={closeDropdown}

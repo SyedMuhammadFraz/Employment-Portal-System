@@ -61,9 +61,9 @@ export default function RegisterForm() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="shadow-lg p-5 rounded-lg border-t-4 w-[400px] border-blue-500">
-                <h1 className="text-xl font-bold my-4">Register</h1>
+        <div className="flex items-center justify-center h-screen bg-[#F3F2EF]">
+            <div className="shadow-lg p-5 rounded-lg border-t-4 bg-white w-[400px] border-blue-500">
+                <h1 className="text-xl text-center font-semibold my-4 text-gray-500">Register</h1>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                     <input
@@ -95,7 +95,7 @@ export default function RegisterForm() {
                     )}
 
                     <Link className="text-sm mt-3 text-right" href={"/"}>
-                        Already have an account? <span className="underline">Login</span>
+                        Already have an account? <span className="underline text-blue-700">Login</span>
                     </Link>
                 </form>
             </div>
