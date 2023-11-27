@@ -26,6 +26,22 @@ const userSchema = new Schema(
       type: Boolean,
       default: true,
     },
+    bio: {
+      type: String,
+      default: "",
+    },
+    occupation: {
+      type: String,
+      default: "",
+    },
+    image: {
+      type: String,
+      default: "", // Assuming it's a URL to the image
+    },
+    resumeID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Resume',
+    },
   },
   { timestamps: true }
 );

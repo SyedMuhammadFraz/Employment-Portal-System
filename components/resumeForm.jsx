@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ResumeForm = ({ userID }) => {
+const ResumeForm = ({ userID, onResumeCallback, onClose }) => {
+    const [hasExistingResume, setHasExistingResume] = useState(false);
     const [formData, setFormData] = useState({
         userID: '',
         name: '',
@@ -14,19 +15,55 @@ const ResumeForm = ({ userID }) => {
         achievement: '',
     });
 
+    const fetchResumeData = async () => {
+        try {
+            const response = await fetch(`/api/resume?userId=${userID}`);
+            const data = await response.json();
+            console.log(data)
+
+            if (response.ok && data.existingResume) {
+                // If resume exists, set the resume data
+                setFormData(prevData => ({
+                    ...prevData,
+                    name: data.existingResume.name,
+                    address: data.existingResume.address || '',
+                    email: data.existingResume.email || '',
+                    phone: data.existingResume.phone || '',
+                    purpose: data.existingResume.purpose || '',
+                    experience: data.existingResume.experience || '',
+                    project: data.existingResume.project || '',
+                    achievement: data.existingResume.achievement || '',
+                }));
+                setHasExistingResume(true);
+                onResumeCallback(data.existingResume ? true : false);
+
+
+            }
+        } catch (error) {
+            console.error('Error fetching resume data:', error.message);
+        }
+    };
+
+    useEffect(() => {
+        if (userID) {
+            fetchResumeData();
+        }
+    }, [userID]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const submitResume = async (formData) => {
-        // Make an API call to save the resume data
+    // Function to fetch resume data
+
+
+    const submitResume = async (formData, userID) => {
         try {
             const response = await fetch('/api/resume', {
                 method: 'POST',
                 body: JSON.stringify({
-                    userId: formData.userID,
-                    userID: { userID },
+                    userId: userID,
                     name: formData.name,
                     address: formData.address,
                     email: formData.email,
@@ -42,76 +79,121 @@ const ResumeForm = ({ userID }) => {
                 throw new Error('Error submitting resume');
             }
 
-            console.log('Resume submitted successfully');
+            const responseData = await response.json();
+
+            // Extract the resume ID from the response
+            const resumeId = responseData.resumeId;
+
+            // Log the newly created or updated resume ID
+            console.log('Resume submitted successfully. Resume ID:', resumeId);
+
+            // Make an API call to update the user data with resumeID
+            try {
+                const updateUserResponse = await fetch(`/api/userExists`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        userId:userID,
+                        resumeID: resumeId,
+                    }),
+                });
+
+                if (!updateUserResponse.ok) {
+                    throw new Error('Error updating resume ID');
+                }
+
+                console.log('Resume ID updated successfully');
+            } catch (updateUserError) {
+                console.error('Error updating resume ID:', updateUserError.message);
+            }
         } catch (error) {
             console.error('Error submitting resume:', error.message);
-            // Handle error, e.g., show an error message to the user
         }
     };
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        submitResume(formData);
+        submitResume(formData, userID);
+        const actionText = hasExistingResume ? 'updated' : 'created';
+        alert(`Resume ${actionText} successfully`);
+        setFormData({
+            userID: '',
+            name: '',
+            address: '',
+            email: '',
+            phone: '',
+            purpose: '',
+            experience: '',
+            project: '',
+            achievement: '',
+        });
     };
 
     return (
         <form className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4">
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="name">
-                        Name
-                    </label>
-                    <input
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
-                </div>
+            <div className='flex justify-between'>
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="mb-4">
+                        <label className="block text-sm font-bold mb-2" htmlFor="name">
+                            Name
+                        </label>
+                        <input
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="address">
-                        Address
-                    </label>
-                    <input
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-bold mb-2" htmlFor="address">
+                            Address
+                        </label>
+                        <input
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                            type="text"
+                            id="address"
+                            name="address"
+                            value={formData.address}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="email">
-                        Email
-                    </label>
-                    <input
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-bold mb-2" htmlFor="email">
+                            Email
+                        </label>
+                        <input
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                            type="text"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="phone">
-                        Phone
-                    </label>
-                    <input
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                    />
+                    <div className="mb-4">
+                        <label className="block text-sm font-bold mb-2" htmlFor="phone">
+                            Phone
+                        </label>
+                        <input
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                            type="text"
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
+                <img onClick={onClose}
+                    className="p-[2px] rounded-full w-[20px] h-[20px] hover:bg-gray-200 cursor-pointer"
+                    alt=""
+                    src="/assets/icons/close.svg"
+                />
             </div>
 
             <hr className="my-4" />

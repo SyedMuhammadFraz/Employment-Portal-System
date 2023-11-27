@@ -22,7 +22,7 @@ const Navbar = () => {
         <img
           className=" w-[30%] h-[50px]"
           alt=""
-          src="./assets/icons/logo.png"
+          src="/assets/icons/logo.png"
         />
         <input
           className="[border:none] p-4 bg-[#EEF3F8] font-montserrat text-sm h-8  w-full "
@@ -40,24 +40,24 @@ const Navbar = () => {
               <img
                 className=" w-[22.29px] h-[18.15px]"
                 alt=""
-                src="./assets/icons/home.svg"
+                src="/assets/icons/home.svg"
               />
               <div className="">Home</div>
             </div>
           </Link>
 
 
-          <a className=" cursor-pointer  text-[inherit]">
+          <Link className='cursor-pointer  text-[inherit]' href="/application">
 
             <div className="flex flex-col items-center justify-center w-[23px] h-[37.8px]">
               <img
                 className="  w-[20.01px] h-[18.06px]"
                 alt=""
-                src="./assets/icons/jobs.svg"
+                src="/assets/icons/jobs.svg"
               />
-              <div className="">Jobs</div>
+              <div className="">Applications</div>
             </div>
-          </a>
+          </Link>
 
           <Link className='cursor-pointer  text-[inherit]' href="/chat">
 
@@ -66,7 +66,7 @@ const Navbar = () => {
               <img
                 className=" w-[22.29px] h-[18.15px]"
                 alt=""
-                src="./assets/icons/chat.svg"
+                src="/assets/icons/chat.svg"
               />
               <div className="">Discussion</div>
             </div>
@@ -80,7 +80,7 @@ const Navbar = () => {
               <img
                 className=" w-[19.99px] h-[19.53px]"
                 alt=""
-                src="./assets/icons/alert.svg"
+                src="/assets/icons/alert.svg"
               />
               <div className="">
                 Notifications
@@ -95,7 +95,7 @@ const Navbar = () => {
               <img
                 className="rounded-[50%] w-[24.52px] h-[24.52px] object-cover"
                 alt=""
-                src="./assets/images/dp2.jpeg"
+                src="/assets/images/dp2.jpeg"
               />
               <div className="">Profile</div>
             </div>
@@ -108,7 +108,7 @@ const Navbar = () => {
                     <img
                       className=" rounded-[50%] w-[43px] h-[43px] object-cover"
                       alt=""
-                      src="./assets/images/dp2.jpeg"
+                      src="/assets/images/dp2.jpeg"
                     />
                     <p className="font-bold text-sm">{session?.user?.name}</p>
                   </div>
@@ -116,7 +116,7 @@ const Navbar = () => {
                   <img onClick={closeDropdown}
                     className="p-[2px] rounded-full w-[20px] h-[20px] hover:bg-gray-200 cursor-pointer"
                     alt=""
-                    src="./assets/icons/close.svg"
+                    src="/assets/icons/close.svg"
                   />
 
                 </div>

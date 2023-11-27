@@ -1,23 +1,20 @@
-const mongoose = require('mongoose');
+import mongoose, { Schema, models } from "mongoose";
 
 const jobSchema = new mongoose.Schema({
-    recruiterID: String,
+    recruiterID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Assuming you have a User model, update it accordingly
+        required: true,
+    },
     title: String,
     description: String,
     dueDate: Date,
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tags' }], // Array of tag references
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
     active: Boolean,
-});
+},
+    { timestamps: true }
+);
 
-let JobListing;
-try {
-    // Check if the model is already defined
-    JobListing = mongoose.model('JobListing');
-} catch (error) {
-    // If the model is not defined, create it
-    JobListing = mongoose.model('JobListing', jobSchema);
-}
+const JobListing = models.JobListing || mongoose.model('JobListing', jobSchema);
 
 module.exports = JobListing;

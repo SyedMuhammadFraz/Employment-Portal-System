@@ -34,7 +34,7 @@ const PublishJob = ({userId}) => {
 
           className="fixed top-0 z-20 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50"
         >
-          <PublishModal id={userId} username={'Username'} isOpen={showModal} onClose={handleCloseModal} />
+          <PublishModal userID={userId} username={'Username'} isOpen={showModal} onClose={handleCloseModal} />
         </div>
       )}
 

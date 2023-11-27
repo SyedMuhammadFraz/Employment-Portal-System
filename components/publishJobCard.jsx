@@ -1,14 +1,57 @@
 "use client"
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import TagComponent from './tag';
 
-const PublishJobCard = ({ username, text, title, date, imageurl,tags, classes }) => {
+const PublishJobCard = ({ userID, jobID, isHire, username, text, title, date, imageurl, tags, classes }) => {
     const [showMore, setShowMore] = useState(false);
-    const maxLength = 150; // Adjust the length as needed
- 
+    const maxLength = 150;
 
+    const router = useRouter();
 
+    const goToProfile = () => {
+        // Use the router to navigate to the profile page
+        router.push(`/profile/${userID}`);
+    };
 
+    const goToApplicants = () => {
+        if (isHire) {
+            // If isHire is true, navigate to the job applicants page
+            router.push(`/application/${jobID}`);
+        } else {
+            // Otherwise, perform the action for applying
+            // For now, it just logs a message to the console
+            console.log('Apply button clicked');
+        }
+    };
+
+    const handleApply = async () => {
+        try {
+            const response = await fetch('/api/application', {
+                method: 'POST',
+                body: JSON.stringify({
+                    jobID: jobID,
+                    applicantID: userID, // Assuming userID is the applicant's ID
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Application submitted successfully');
+            } else {
+                console.error('Error submitting application:', data.message);
+            }
+        } catch (error) {
+            console.error('Error submitting application:', error.message);
+        }
+
+        alert('applied')
+
+    };
 
     const handleSeeMore = () => {
         setShowMore(!showMore);
@@ -16,7 +59,7 @@ const PublishJobCard = ({ username, text, title, date, imageurl,tags, classes })
     return (
         <div className={`w-full rounded-md mb-4 bg-white p-4 ${classes}`}>
 
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between cursor-pointer' onClick={goToProfile}>
 
                 <div className=" flex items-center gap-3 ">
                     <img
@@ -33,7 +76,7 @@ const PublishJobCard = ({ username, text, title, date, imageurl,tags, classes })
                 <img
                     className=" w-[19.99px] h-[19.53px]"
                     alt=""
-                    src="./assets/icons/dots.svg"
+                    src="/assets/icons/dots.svg"
                 />
 
             </div>
@@ -69,7 +112,15 @@ const PublishJobCard = ({ username, text, title, date, imageurl,tags, classes })
             </div>
             <div className='h-[0.1px] w-full bg-gray-200 mt-10' />
             <div className='flex justify-center'>
-                <button className='text-center justify-center px-4 py-2 text-white rounded-md w-full bg-blue-600 hover:bg-blue-700 font-bold' > Apply </button>
+                {isHire ? (
+                    <button className='text-center justify-center px-4 py-2 text-white rounded-md w-full bg-blue-600 hover:bg-blue-700 font-bold' onClick={goToApplicants}>
+                        View Applicants
+                    </button>
+                ) : (
+                    <button onClick={handleApply} className='text-center justify-center px-4 py-2 text-white rounded-md w-full bg-blue-600 hover:bg-blue-700 font-bold ' >
+                        Apply
+                    </button>
+                )}
 
             </div>
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const JobListing = require('../../../models/jobModel');
 import Tags from '@/models/tagModel';
+import User from '@/models/user';
 import connectMongoDB from '@/libs/mongodb';
 import { NextResponse } from 'next/server';
 
@@ -12,13 +13,13 @@ export async function GET(req, res) {
    console.log('route=',recruiterID)
    if (recruiterID) {
       // Retrieve jobs for the specified recruiter ID
-      const jobs = await JobListing.find({ recruiterID }).populate('tags');
+      const jobs = await JobListing.find({ recruiterID }).populate('tags').populate('recruiterID');
 
       // Return the filtered jobs as JSON
       return NextResponse.json({ jobs });
    } else {
       // Retrieve all jobs
-      const jobs = await JobListing.find({}).populate('tags');
+      const jobs = await JobListing.find({}).populate('tags').populate('recruiterID');
 
       // Return all jobs as JSON
       return NextResponse.json({ jobs });

@@ -3,7 +3,6 @@ import PublishJobCard from './publishJobCard';
 
 const getJobs = async (id) => {
     try {
-        console.log('specificjobs=', id);
         const res = await fetch(`http://localhost:3000/api/job?recruiterID=${id}`, {
             cache: 'no-store',
         });
@@ -19,12 +18,13 @@ const getJobs = async (id) => {
     }
 };
 
-export default function SpecificJobs({ userID }) {
+export default function SpecificJobs({ userID , isHire}) {
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log(userID)
                 const data = await getJobs(userID);
                 setJobs(data.jobs);
             } catch (error) {
@@ -41,13 +41,16 @@ export default function SpecificJobs({ userID }) {
             {jobs.map((job, index) => (
                 <PublishJobCard
                     key={index}
-                    imageurl={"./assets/images/dp2.jpeg"}
-                    username={job.recruiterID}
+                    imageurl={"/assets/images/dp2.jpeg"}
+                    username={job.recruiterID.name}
                     text={job.description}
                     title={job.title}
                     date={job.dueDate}
                     tags={job.tags}
                     classes={'border'}
+                    isHire={isHire}
+                    userID={userID}
+                    jobID={job._id}
                 />
             ))}
         </div>

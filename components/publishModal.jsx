@@ -4,7 +4,7 @@ import Calendar from 'react-calendar';
 import TagsModal from './tagsModal';
 import TagComponent from './tag';
 
-const PublishModal = ({id, username, isOpen, onClose }) => {
+const PublishModal = ({userID, username, isOpen, onClose }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false);
     const [showTagsModal, setShowTagsModal] = useState(false);
@@ -36,7 +36,7 @@ const PublishModal = ({id, username, isOpen, onClose }) => {
             const response = await fetch('http://localhost:3000/api/job', {
                 method: 'POST',
                 body: JSON.stringify({
-                    recruiterID: id, // You need to replace this with the actual recruiter ID
+                    recruiterID: userID, // You need to replace this with the actual recruiter ID
                     title: jobTitle,
                     description: jobDescription,
                     dueDate: dueDate, // Convert to ISO string format
