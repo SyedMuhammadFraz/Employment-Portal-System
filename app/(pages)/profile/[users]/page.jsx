@@ -37,7 +37,8 @@ const Profile = ({ params }) => {
     _id: '',
     name: '',
     email: '',
-    // add other attributes as needed
+    bio: '',
+    occupation: '',
   });
 
   useEffect(() => {
@@ -52,8 +53,10 @@ const Profile = ({ params }) => {
           _id: data.user._id,
           name: data.user.name,
           email: data.user.email,
-          // set other attributes
-        });        console.log('in effect',data.user.name)
+          occupation: data.user.occupation,
+          bio: data.user.bio,
+        });       
+         console.log('in effect',data.user.name)
         console.log(userData) 
 
 
@@ -109,8 +112,8 @@ const Profile = ({ params }) => {
             <div className='py-4'>
               <div className='flex flex-col pl-5 pr-5  items-start justify-center mt-0  '>
                 <p className='font-medium text-2xl text-black'>{userData.name}</p>
-                <p className='text-sm text-gray-500 pt-1'>IT Specialist</p>
-                <p className='text-sm text-gray-500 pt-1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                <p className='text-sm text-gray-500 pt-1'>{userData.occupation}</p>
+                <p className='text-sm text-gray-500 pt-1'>{userData.bio}</p>
               </div>
 
               <div className='flex gap-[2px]'>

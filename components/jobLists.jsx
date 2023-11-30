@@ -40,7 +40,7 @@ export default function JobLists({loggedInID}) {
     return (
         <div className='mt-4'>
             {jobs && jobs.map((job, index) => (
-                <PublishJobCard key={index} jobID={job._id} userID={loggedInID} imageurl={"./assets/images/dp.png"} username={job.recruiterID.name} text={job.description} title={job.title} date={job.dueDate} tags={job.tags}
+                <PublishJobCard key={index} jobID={job._id} userID={job.recruiterID._id} imageurl={"./assets/images/dp.png"} username={job.recruiterID.name} text={job.description} title={job.title} date={job.dueDate} tags={job.tags}
                 isHire={loggedInID === job.recruiterID._id}
                 />
             ))}
