@@ -9,8 +9,8 @@ await connectMongoDB()
 
 
 export async function GET(req, res) {
-   const recruiterID =req.nextUrl.searchParams.get('recruiterID');
-   console.log('route=',recruiterID)
+   const recruiterID = req.nextUrl.searchParams.get('recruiterID');
+   console.log('route=', recruiterID)
    if (recruiterID) {
       // Retrieve jobs for the specified recruiter ID
       const jobs = await JobListing.find({ recruiterID }).populate('tags').populate('recruiterID');
@@ -60,5 +60,34 @@ export async function DELETE(req, res) {
    }
 }
 
+export async function PUT(req) {
+   try {
+      await connectMongoDB();
 
+      // Extract data from the request body
+      const { _id,  hiredID } = await req.json();
+
+      // Find the user by userID and update the resumeID
+      const updatedJob = await JobListing.findByIdAndUpdate(
+         _id,
+         { $set: { hiredID } },
+         { new: true } // Return the updated user
+      );
+
+      if (updatedJob) {
+         return NextResponse.json({ job: updatedJob });
+      } else {
+         return NextResponse.json({
+            status: 404,
+            message: 'job not found',
+         });
+      }
+   } catch (error) {
+      console.error(error);
+      return NextResponse.json({
+         status: 500,
+         message: 'Internal Server Error',
+      });
+   }
+}
 

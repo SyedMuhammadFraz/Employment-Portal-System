@@ -29,7 +29,7 @@ export default function Home() {
 
             <PublishJob userId={session?.user?.id} />
             <div className='mt-4'>
-              <JobLists />
+              <JobLists loggedInID={session?.user?.id} />
             </div>
           </section>
 

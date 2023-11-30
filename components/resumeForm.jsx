@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const ResumeForm = ({ userID, onResumeCallback, onClose }) => {
     const [hasExistingResume, setHasExistingResume] = useState(false);
+    const [resID, setResID] = useState('')
     const [formData, setFormData] = useState({
         userID: '',
         name: '',
@@ -34,6 +35,7 @@ const ResumeForm = ({ userID, onResumeCallback, onClose }) => {
                     project: data.existingResume.project || '',
                     achievement: data.existingResume.achievement || '',
                 }));
+                setResID(data.existingResume._id)
                 setHasExistingResume(true);
                 onResumeCallback(data.existingResume ? true : false);
 
@@ -59,6 +61,7 @@ const ResumeForm = ({ userID, onResumeCallback, onClose }) => {
 
 
     const submitResume = async (formData, userID) => {
+        let resumeId;
         try {
             const response = await fetch('/api/resume', {
                 method: 'POST',
@@ -82,26 +85,48 @@ const ResumeForm = ({ userID, onResumeCallback, onClose }) => {
             const responseData = await response.json();
 
             // Extract the resume ID from the response
-            const resumeId = responseData.resumeId;
+            resumeId = responseData.resumeId;
 
             // Log the newly created or updated resume ID
             console.log('Resume submitted successfully. Resume ID:', resumeId);
 
             // Make an API call to update the user data with resumeID
             try {
-                const updateUserResponse = await fetch(`/api/userExists`, {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        userId:userID,
-                        resumeID: resumeId,
-                    }),
-                });
+                const updateUserResponse = await fetch(`/api/userExists`,
+                    {
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            userId: userID,
+                            resumeID: resumeId,
+                        }),
+                    });
 
                 if (!updateUserResponse.ok) {
                     throw new Error('Error updating resume ID');
                 }
 
                 console.log('Resume ID updated successfully');
+
+                try {
+                    console.log('Res ID', resumeId);
+
+                    const auditResponse = await fetch(`/api/resumeAudit`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            resumeID: resumeId,
+                            updatedData: formData,
+                        }),
+                    });
+
+                    if (!auditResponse.ok) {
+                        throw new Error('Error adding audit entry');
+                    }
+
+                    console.log('Audit entry added successfully');
+                } catch (auditError) {
+                    console.error('Error adding audit entry:', auditError.message);
+                }
+
             } catch (updateUserError) {
                 console.error('Error updating resume ID:', updateUserError.message);
             }

@@ -9,6 +9,7 @@ import { getSession, useSession } from 'next-auth/react';
 
 
 const getUser = async (id) => {
+  
   try {
     const res = await fetch(`http://localhost:3000/api/userExists?userId=${id}`, {
       cache: 'no-store',
@@ -28,7 +29,7 @@ const getUser = async (id) => {
   }
 };
 
-const Profile = ({ params }) => {
+const Profile = () => {
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasExistingResume, setHasExistingResume] = useState(false);
@@ -43,9 +44,8 @@ const Profile = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('in effect',params.users)
-        const id=params.users;
-        console.log(typeof(id))
+        console.log('in effect', session?.user?.id)
+        const id=session?.user?.id;
         const data = await getUser(id);
 
         setData({
@@ -53,8 +53,7 @@ const Profile = ({ params }) => {
           name: data.user.name,
           email: data.user.email,
           // set other attributes
-        });        console.log('in effect',data.user.name)
-        console.log(userData) 
+        }); 
 
 
       } catch (error) {
@@ -64,7 +63,9 @@ const Profile = ({ params }) => {
     };
 
     fetchData();
-  }, []);
+    console.log(userData) 
+
+  }, [session?.user?.id]);
 
 
   const handleResumeCallback = (hasExisting) => {
@@ -94,7 +95,7 @@ const Profile = ({ params }) => {
               <img
                 className=" rounded-t-md w-full h-[200px] object-cover"
                 alt=""
-                src="../assets/images/cover.png"
+                src="/assets/images/cover.png"
               />
             </div>
 
@@ -102,7 +103,7 @@ const Profile = ({ params }) => {
               <img
                 className="rounded-[50%] border-[3px] border-white w-[130px] h-[130px] object-cover"
                 alt=""
-                src="../assets/images/dp2.jpeg"
+                src="/assets/images/dp2.jpeg"
               />
             </div>
 
@@ -131,7 +132,7 @@ const Profile = ({ params }) => {
                     </div>
                     <div className="z-10 rounded-lg shadow-md max-w-md mx-auto">
 
-                      <ResumeForm userID={params.users} onClose={closeModal} onResumeCallback={handleResumeCallback} />
+                      <ResumeForm userID={session?.user?.id} onClose={closeModal} onResumeCallback={handleResumeCallback} />
 
                     </div>
                   </div>
@@ -152,7 +153,7 @@ const Profile = ({ params }) => {
                     </div>
                     <div className="z-10 rounded-lg shadow-md max-w-md mx-auto">
                       {/* Render your Resume component here */}
-                      <ResumeModal userID={params.users} onClose={closeResumeModal} />
+                      <ResumeModal userID={session?.user?.id} onClose={closeResumeModal} />
 
                     </div>
                   </div>
@@ -163,11 +164,11 @@ const Profile = ({ params }) => {
             </div>
 
           </div>
-          {/* Posts */}
+          {/* ______________Posts__________________ */}
           <div className='w-[783px] mt-4 bg-white rounded-md'>
             <h3 className='px-4 pt-4 font-medium'>Published Jobs</h3>
             <div className='mt-1 px-3'>
-              <SpecificJobs LoggedInID={session?.user?.id} userID={params.users} />
+              <SpecificJobs isHire={true} userID={userData._id} />
             </div>
           </div>
         </section>

@@ -6,6 +6,10 @@ const jobSchema = new mongoose.Schema({
         ref: 'User', // Assuming you have a User model, update it accordingly
         required: true,
     },
+    hiredID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Assuming you have a User model, update it accordingly
+    },
     title: String,
     description: String,
     dueDate: Date,

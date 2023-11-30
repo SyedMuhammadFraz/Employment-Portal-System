@@ -18,7 +18,7 @@ const PublishJob = ({userId}) => {
       <img
         className=" rounded-[50%] w-[63px] h-[63px] object-cover"
         alt=""
-        src="./assets/images/dp2.jpeg"
+        src="/assets/images/dp2.jpeg"
       />
 
 

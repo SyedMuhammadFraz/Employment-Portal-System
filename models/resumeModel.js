@@ -1,7 +1,6 @@
 import mongoose, { Schema, models } from "mongoose";
 import User from "./user";
 
-
 const resumeSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -46,6 +45,8 @@ const resumeSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
+
 const Resume = models.Resume || mongoose.model('Resume', resumeSchema);
+
 
 module.exports = Resume;

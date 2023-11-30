@@ -38,11 +38,10 @@ export default function Applications({ params }) {
             <div className='flex bg-[#F3F2EF] py-14  flex-col items-center w-screen min-h-screen h-full'>
                 <div className='w-[543px] mt-4 bg-white rounded-md'>
                     <h3 className='px-4 pt-4 font-medium'>Applicants</h3>
-                    <div className='mt-1 px-3'>
+                    <div className='mt-1 py-2 px-3'>
                         {applications.map((application, index) => (
-                            // Assuming each application has applicantIDs array
                             application.applicantIDs.map((applicant, idx) => (
-                                <Applicant key={`${index}-${idx}`} username={applicant.name} />
+                                <Applicant key={`${index}-${idx}`} applicantID={applicant._id} jobId={application.jobID._id} imageurl={'/assets/images/dp2.jpeg'} username={applicant.name} />
                             ))
                         ))}
                     </div>

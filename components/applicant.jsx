@@ -1,9 +1,33 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-const Applicant = ({ username, resume, imageurl }) => {
+import ResumeModal from './resume';
+const Applicant = ({ username, jobId, imageurl, applicantID }) => {
     const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
+    const handleHire = async () => {
 
+        // Make an API call to update the jobListing with applicantId
+        console.log("jobId: ", jobId, 'hiredID: ', applicantID)
+        try {
+            const updateJob = await fetch(`/api/job`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    _id: jobId,
+                    hiredID: applicantID,
+                }),
+            });
+
+            if (!updateJob.ok) {
+                throw new Error('Error updating hired ID');
+            }
+
+            console.log('hired ID updated successfully');
+            alert('Applicant hired!')
+        } catch (updateJoberror) {
+            console.error('Error updating hired ID:', updateJoberror.message);
+        }
+
+    };
     const openResumeModal = () => {
         setIsResumeModalOpen(true);
     };
@@ -13,24 +37,28 @@ const Applicant = ({ username, resume, imageurl }) => {
     };
 
     return (
-        <div className='flex justify-between w-full'>
-            <div className=" flex items-center gap-3 ">
+        <div className='flex items-center border-[1px] p-2  rounded-md justify-between w-full'>
+            <div
+                onClick={openResumeModal}
+                className=" flex  p-2 items-center gap-3 cursor-pointer ">
                 <img
-                    className=" rounded-[50%] w-[30px] h-[30px] object-cover"
+                    className=" rounded-[50%] w-[40px] h-[40px] object-cover"
                     alt=""
                     src={imageurl}
                 />
                 <div className=''>
                     <p className="font-bold">{username}</p>
+                    <p className=" text-xs ">View Resume</p>
+
                 </div>
             </div>
 
             {/* ____________________Resume Moda_____________________- */}
             <button
-                onClick={openResumeModal}
-                className='w-full mt-2 h-10 inline-flex justify-center rounded-full border border-gray-500 shadow-sm px-4 py-2 bg-white text-base font-medium  text-gray-500 hover:border-2 hover:font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm'
+            onClick={handleHire}
+                className='w-full p-2 h-8 inline-flex justify-center rounded-md shadow-sm px-4 py-2 bg-blue-600 text-base font-medium  text-white hover:bg-blue-700 sm:ml-3 sm:w-auto sm:text-sm'
             >
-                My Resume
+                Hire
             </button>
 
             {isResumeModalOpen && (
@@ -40,7 +68,7 @@ const Applicant = ({ username, resume, imageurl }) => {
                     </div>
                     <div className="z-10 rounded-lg shadow-md max-w-md mx-auto">
                         {/* Render your Resume component here */}
-                        <ResumeModal userID={params.users} onClose={closeResumeModal} />
+                        <ResumeModal userID={applicantID} onClose={closeResumeModal} />
 
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import TagComponent from './tag';
 
+
 const PublishJobCard = ({ userID, jobID, isHire, username, text, title, date, imageurl, tags, classes }) => {
     const [showMore, setShowMore] = useState(false);
     const maxLength = 150;

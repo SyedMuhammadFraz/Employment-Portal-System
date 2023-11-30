@@ -18,7 +18,7 @@ const getJobs = async (id) => {
     }
 };
 
-export default function SpecificJobs({ userID , isHire}) {
+export default function SpecificJobs({ userID , isHire, LoggedInID}) {
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
@@ -48,9 +48,10 @@ export default function SpecificJobs({ userID , isHire}) {
                     date={job.dueDate}
                     tags={job.tags}
                     classes={'border'}
-                    isHire={isHire}
+                    isHire={isHire !== undefined ? isHire : LoggedInID === job.recruiterID._id}
                     userID={userID}
                     jobID={job._id}
+                    
                 />
             ))}
         </div>
